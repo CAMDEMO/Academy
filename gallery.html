@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery</title>
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Animate.css for animations -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link href="styles.css" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-color: #800000;
+      /* Maroon */
+      --secondary-color: #000080;
+      /* Navy Blue */
+      --hover-color: rgb(35, 29, 198);
+      --light-background: #f4f6f9;
+    }
+
+/* Gallery Card Styling */
+.gallery-card {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 0;
+  height: 250px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+}
+
+.gallery-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.5s ease;
+}
+
+.gallery-card:hover img {
+  transform: scale(1.1);
+  filter: brightness(0.8);
+}
+
+/* Card overlay with titles */
+.card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  color: white;
+  padding: 15px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-card:hover .card-overlay {
+  opacity: 1;
+}
+
+/* Gallery Modal Styling */
+.gallery-modal-img {
+  max-height: 80vh;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Gallery Filter Buttons */
+.gallery-filter button {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 0.5rem 1.2rem;
+  border-radius: 30px;
+  color: #495057;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.gallery-filter button:hover {
+  transform: translateY(-3px);
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-filter button.active {
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Gallery Item Animation */
+.gallery-item {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.4s ease;
+}
+
+.gallery-item.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Improved responsive layout */
+@media (max-width: 767px) {
+  .gallery-card {
+    height: 200px;
+  }
+}
+
+    .navbar {
+      background: #800000;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      padding: 1rem 0;
+    }
+
+    .navbar .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      height: 80px;
+      /* Adjust height for a larger navbar */
+    }
+
+    .navbar-nav {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand,
+    .nav-link {
+      color: white !important;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    .logo-container {
+      max-height: 100px;
+      margin-right: 15px;
+    }
+
+    .logo-container img {
+      max-height: 90px;
+      width: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .dropdown-item {
+      color: rgb(0, 0, 0);
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-item:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #800000;
+      transform: translateX(10px);
+    }
+
+    footer {
+      background: #800000;
+      color: white !important;
+      transition: all 0.3s ease;
+    }
+
+    footer a {
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    footer a:hover {
+      color: black;
+      text-decoration: none;
+      transform: scale(1.2) rotate(360deg);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* New styles for color scheme */
+    .bg-primary {
+      background-color: var(--primary-color) !important;
+    }
+
+    .text-primary {
+      color: var(--primary-color) !important;
+    }
+
+    .badge.bg-primary {
+      background-color: var(--primary-color) !important;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--secondary-color);
+      border-color: var(--secondary-color);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-outline-primary {
+      color: var(--primary-color);
+      border-color: var(--primary-color);
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline-primary:hover {
+      background-color: var(--secondary-color);
+      border-color: var(--secondary-color);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .gallery-filter {
+      margin-bottom: 2rem;
+    }
+
+    .gallery-filter button {
+      margin: 0 0.25rem;
+      transition: all 0.3s ease;
+    }
+
+    .gallery-filter button:hover {
+      transform: translateY(-3px);
+    }
+
+    .breadcrumb-item a {
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .breadcrumb-item a:hover {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="preloader">
+    <h1 class="fade-text">CAM Academy Gallery</h1>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+      <div class="logo-container">
+        <img src="assets/55.png" alt="Christ's Ambassadors Ministries Academy Logo" class="img-fluid" />
+      </div>
+      <a class="navbar-brand" href="#"> CAM ACADEMY </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="navigateTo('home')">Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="navigateTo('about')">About Us</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="admissionDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Admission
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="admissionDropdown">
+              <li>
+                <a class="dropdown-item" href="#" onclick="navigateTo('early-years')">Early Years of Education</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" onclick="navigateTo('lower-primary')">Lower Primary</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" onclick="navigateTo('upper-primary')">Upper Primary</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" onclick="navigateTo('junior-secondary')">Junior Secondary</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="navigateTo('events')">Events</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="navigateTo('gallery')">Gallery</a>
+          </li>
+
+
+
+          <li class="nav-item">
+            <a class="nav-link active" href="#" onclick="navigateTo('contact')">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Page Header -->
+  <div class="bg-primary text-white py-5 mb-5">
+    <div class="container">
+      <h1 class="display-4"><strong>Our Gallery</strong></h1>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.html" class="text-white">Home</a>
+          </li>
+          <li class="breadcrumb-item active text-white" aria-current="page">
+            Gallery
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Gallery Introduction Section -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-lg-8 text-center">
+          <h2 class="section-heading mb-3">Memories at CAM Academy</h2>
+          <p class="lead">
+            Explore the vibrant life and learning experiences at Christ's Ambassadors Ministries Academy through our
+            photo gallery. These images capture the essence of our educational journey and the community we've built
+            together.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- Gallery Filter Buttons Section -->
+<section class="py-3">
+  <div class="container">
+    <div class="gallery-filter mb-4 text-center">
+      <button class="btn me-2 mb-2" data-filter="all">All</button>
+      <button class="btn me-2 mb-2" data-filter="academics">Academics</button>
+      <button class="btn me-2 mb-2" data-filter="sports">Sports</button>
+      <button class="btn me-2 mb-2" data-filter="events">Events</button>
+      <button class="btn me-2 mb-2" data-filter="facilities">Facilities</button>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery Grid Section -->
+<section class="py-4">
+  <div class="container">
+    <div class="row g-4" id="gallery-grid">
+      <!-- Academic Images -->
+      <div class="col-md-4 col-sm-6 gallery-item academics">
+        <div class="gallery-card">
+          <img src="assets/gal1.jpg" alt="Science Laboratory Session" class="img-fluid" onclick="openModal(this.src, '')">
+          <div class="card-overlay">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 gallery-item academics">
+        <div class="gallery-card">
+          <img src="assets/gal2.jpg" alt="Library Study Session" class="img-fluid" onclick="openModal(this.src, 'Library Study Session')">
+          <div class="card-overlay">
+            <h5></h5>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sports Images -->
+      <div class="col-md-4 col-sm-6 gallery-item sports">
+        <div class="gallery-card">
+          <img src="assets/gal3.jpg" alt="Football Match" class="img-fluid" onclick="openModal(this.src, 'Football Match')">
+          <div class="card-overlay">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 gallery-item sports">
+        <div class="gallery-card">
+          <img src="assets/lpl.jpg" alt="Athletics Day" class="img-fluid" onclick="openModal(this.src, 'Athletics Day')">
+          <div class="card-overlay">
+          </div>
+        </div>
+      </div>
+
+      <!-- Events Images -->
+      <div class="col-md-4 col-sm-6 gallery-item events">
+        <div class="gallery-card">
+          <img src="assets/5.jpg" alt="Graduation Ceremony" class="img-fluid" onclick="openModal(this.src, 'Graduation Ceremony')">
+          <div class="card-overlay">
+          </div>
+        </div>
+      </div>
+
+      <!-- Facilities Images -->
+      <div class="col-md-4 col-sm-6 gallery-item facilities">
+        <div class="gallery-card">
+          <img src="assets/4.jpg" alt="School Building" class="img-fluid" onclick="openModal(this.src, 'School Building')">
+          <div class="card-overlay">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery Modal -->
+<div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="galleryModalLabel"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img id="modalImage" src="" alt="Gallery Image" class="gallery-modal-img img-fluid">
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Gallery Message Section -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <h2 class="mb-3">Share Your Memories</h2>
+          <p class="lead">
+            Have you captured special moments at CAM Academy? We invite parents and students to share their photos to be
+            featured in our gallery.
+          </p>
+          <p>
+            Please email your high-quality images to <strong>gallery@camacademy.edu</strong> with a brief description of
+            the event or activity.
+          </p>
+          <a href="#" onclick="navigateTo('contact')" class="btn btn-primary mt-3">Share Images</a>
+        </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-white py-5">
+    <div class="container">
+      <div class="row">
+        <!-- Logo container with responsive centering -->
+        <div class="col-md-2 d-flex justify-content-center justify-content-md-start align-items-center mb-3 mb-md-0">
+          <div class="logo-container-footer">
+            <img src="assets/55.png" alt="Christ's Ambassadors Ministries Academy Logo" class="img-fluid"
+              style="max-height: 150px;">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <h4>Christ's Ambassadors Ministries Academy</h4>
+          <p><strong>KNOWLEDGE FOR SERVANTHOOD</strong></p>
+        </div>
+
+        <div class="col-md-3">
+          <h5>Contact Info</h5>
+          <ul class="list-unstyled">
+            <li><i class="fas fa-map-marker-alt me-2"></i> Kapsegeli Village- Kapsoi</li>
+            <li><i class="fas fa-phone me-2"></i> +254 700 859162</li>
+            <li><i class="fas fa-envelope me-2"></i> info@camacademy.edu</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="my-4 bg-white">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0">&copy; <span id="current-year"></span> Christ's Ambassadors Ministries Academy. All Rights
+            Reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS and Dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <script>
+    // Gallery filtering with animation
+    document.addEventListener('DOMContentLoaded', function () {
+      // Get all filter buttons and gallery items
+      const filterButtons = document.querySelectorAll('.gallery-filter button');
+      const galleryItems = document.querySelectorAll('.gallery-item');
+
+      // Add click event to each filter button
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          // Remove active class from all buttons
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+
+          // Add active class to clicked button
+          this.classList.add('active');
+
+          // Get the filter value
+          const filterValue = this.getAttribute('data-filter');
+
+          // First, make all items invisible (but not hidden, to maintain layout)
+          galleryItems.forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'scale(0.8)';
+          });
+
+          // After a short delay, show/hide items based on filter
+          setTimeout(() => {
+            galleryItems.forEach(item => {
+              if (filterValue === 'all' || item.classList.contains(filterValue)) {
+                // Show items that match the filter
+                item.style.display = 'block';
+                // Use setTimeout to create a staggered animation effect
+                setTimeout(() => {
+                  item.style.opacity = '1';
+                  item.style.transform = 'scale(1)';
+                }, Math.random() * 200); // Random delay for a shuffle effect
+              } else {
+                // Hide items that don't match
+                item.style.display = 'none';
+              }
+            });
+          }, 300); // Delay to allow fade-out first
+        });
+      });
+
+      // Initialize the gallery with "All" selected
+      document.querySelector('.gallery-filter button[data-filter="all"]').click();
+
+      // Function to open modal with clicked image
+      window.openModal = function (imgSrc, title) {
+        const modalImg = document.getElementById('modalImage');
+        modalImg.src = imgSrc;
+
+        document.getElementById('galleryModalLabel').textContent = title;
+
+        // Use Bootstrap's modal method to show
+        const galleryModal = new bootstrap.Modal(document.getElementById('galleryModal'));
+        galleryModal.show();
+      };
+    });
+    document.getElementById('current-year').innerHTML = new Date().getFullYear();
+
+    // Variables to track scroll position
+    let lastScrollTop = 0;
+    const navbar = document.querySelector('.navbar');
+    const scrollThreshold = 100; // Minimum scroll amount to trigger the effect
+
+    // Function to handle the scroll event
+    function handleScroll() {
+      // Get current scroll position
+      const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      // Determine scroll direction
+      if (currentScrollTop > lastScrollTop && currentScrollTop > scrollThreshold) {
+        // Scrolling down - hide navbar
+        navbar.style.transform = 'translateY(-100%)';
+        navbar.style.transition = 'transform 0.3s ease-in-out';
+      } else {
+        // Scrolling up - show navbar
+        navbar.style.transform = 'translateY(0)';
+        navbar.style.transition = 'transform 0.3s ease-in-out';
+      }
+
+      // Update last scroll position
+      lastScrollTop = currentScrollTop;
+    }
+
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll);
+
+    // Initialize navbar state
+    document.addEventListener('DOMContentLoaded', function () {
+      // Make sure navbar is visible when page first loads
+      navbar.style.transform = 'translateY(0)';
+    });
+
+    // Navigation function
+    function navigateTo(page) {
+      switch (page) {
+        case "home":
+          window.location.href = "index.html";
+          break;
+        case "about":
+          window.location.href = "about.html";
+          break;
+        case "early-years":
+          window.location.href = "early-years.html";
+          break;
+        case "lower-primary":
+          window.location.href = "lower-primary.html";
+          break;
+        case "upper-primary":
+          window.location.href = "upper-primary.html";
+          break;
+        case "junior-secondary":
+          window.location.href = "junior-secondary.html";
+          break;
+        case "events":
+          window.location.href = "events.html";
+          break;
+        case "gallery":
+          window.location.href = "gallery.html";
+          break;
+        case "contact":
+          window.location.href = "contact.html";
+          break;
+        default:
+          window.location.href = "index.html";
+      }
+    }
+
+    // Function to open modal with clicked image
+    window.openModal = function (imgSrc) {
+      const modalImg = document.getElementById('modalImage');
+      modalImg.src = imgSrc;
+
+      // Hide the title in the modal or set it to empty
+      document.getElementById('galleryModalLabel').style.display = 'none';
+
+      // Use Bootstrap's modal method to show
+      const galleryModal = new bootstrap.Modal(document.getElementById('galleryModal'));
+      galleryModal.show();
+    };
+
+    // Gallery filtering with animation
+    document.addEventListener('DOMContentLoaded', function () {
+      // Get all filter buttons and gallery items
+      const filterButtons = document.querySelectorAll('.gallery-filter button');
+      const galleryItems = document.querySelectorAll('.gallery-item');
+
+      // Add click event to each filter button
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          // Remove active class from all buttons
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+
+          // Add active class to clicked button
+          this.classList.add('active');
+
+          // Get the filter value
+          const filterValue = this.getAttribute('data-filter');
+
+          // First, make all items invisible (but not hidden, to maintain layout)
+          galleryItems.forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'scale(0.8)';
+          });
+
+          // After a short delay, show/hide items based on filter
+          setTimeout(() => {
+            galleryItems.forEach(item => {
+              if (filterValue === 'all' || item.classList.contains(filterValue)) {
+                // Show items that match the filter
+                item.style.display = 'block';
+                // Use setTimeout to create a staggered animation effect
+                setTimeout(() => {
+                  item.style.opacity = '1';
+                  item.style.transform = 'scale(1)';
+                }, Math.random() * 200); // Random delay for a shuffle effect
+              } else {
+                // Hide items that don't match
+                item.style.display = 'none';
+              }
+            });
+          }, 300); // Delay to allow fade-out first
+        });
+      });
+
+      // Initialize the gallery with "All" selected
+      document.querySelector('.gallery-filter button[data-filter="all"]').click();
+    });
+    // Scroll-triggered animations
+    function checkScroll() {
+      const scrollAnimateElements = document.querySelectorAll(".scroll-animate");
+
+      scrollAnimateElements.forEach((element) => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+
+        if (elementPosition < windowHeight * 0.75) {
+          element.classList.add("visible");
+        }
+      });
+    }
+
+    // Smooth Scroll to Top and Scroll Animations
+    document.addEventListener("DOMContentLoaded", function () {
+      window.scrollTo(0, 0);
+      window.addEventListener("scroll", checkScroll);
+      checkScroll(); // Initial check
+    });
+
+    // Preloader Animation
+    const preloader = document.getElementById("preloader");
+    const body = document.body;
+
+    preloader.innerHTML = `
+            <img src="assets/logo.png" alt="CAM Academy Logo" class="logo">
+            <div class="text">CAM Academy</div>
+        `;
+
+    window.addEventListener("load", function () {
+      setTimeout(function () {
+        preloader.classList.add("fade-out");
+
+        setTimeout(function () {
+          preloader.style.display = "none";
+          body.style.overflow = "auto";
+        }, 500);
+      }, 1500);
+    });
+  </script>
+</body>
+
+</html>

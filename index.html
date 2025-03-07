@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CAM Academy</title>
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Animate.css for animations -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link href="styles.css" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-color: #800000;
+      /* Maroon */
+      --secondary-color: #000080;
+      /* Navy Blue */
+      --hover-color: rgb(35, 29, 198);
+      --light-background: #f4f6f9;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* Improve navbar styling */
+    .navbar {
+      margin: 0 !important;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 1030;
+    }
+
+    /* Make sure hero connects directly to navbar */
+    #hero {
+      margin-top: 0 !important;
+      position: relative;
+      z-index: 1020;
+      /* Lower than navbar z-index */
+    }
+
+    /* Ensure no gaps between sections */
+    section {
+      position: relative;
+    }
+
+    /* Fix for the movement when scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .container-fluid.p-0 {
+      padding: 0 !important;
+    }
+
+    .row.g-0 {
+      margin: 0 !important;
+    }
+
+    .navbar {
+      background: #800000;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      padding: 1rem 0;
+    }
+
+    .navbar .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      height: 80px;
+      /* Adjust height for a larger navbar */
+    }
+
+    .navbar {
+      background: var(--primary-color);
+      padding: 0.5rem 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-brand {
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+      padding: 0.5rem 0;
+      margin-right: 2rem;
+    }
+
+    .navbar-nav {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand,
+    .nav-link {
+      color: white !important;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    .logo-container {
+      max-height: 100px;
+      margin-right: 15px;
+    }
+
+    .logo-container img {
+      max-height: 90px;
+      width: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .dropdown-item {
+      color: rgb(0, 0, 0);
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-item:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #800000;
+      transform: translateX(10px);
+    }
+
+    footer {
+      background: #800000;
+      color: white !important;
+      transition: all 0.3s ease;
+    }
+
+    footer a {
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    footer a:hover {
+      color: black;
+      text-decoration: none;
+      transform: scale(1.2) rotate(360deg);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* New styles for color scheme */
+    .bg-primary {
+      background-color: var(--primary-color) !important;
+    }
+
+    .text-primary {
+      color: var(--primary-color) !important;
+    }
+
+    .badge.bg-primary {
+      background-color: var(--primary-color) !important;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--secondary-color);
+      border-color: var(--secondary-color);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-outline-primary {
+      color: var(--primary-color);
+      border-color: var(--primary-color);
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline-primary:hover {
+      background-color: var(--secondary-color);
+      border-color: var(--secondary-color);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #hero {
+      position: relative;
+      background-color: #800000;
+      /* Maroon background */
+      color: white;
+      overflow: hidden;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #800000;
+      /* Solid maroon for left side */
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 100px 40px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #hero-image-container {
+      position: relative;
+      height: 400px;
+      /* Reduced from 600px */
+      overflow: hidden;
+      padding: 0;
+      z-index: 3;
+    }
+
+    .hero-image {
+      width: 80%;
+      /* Reduced from 100% */
+      height: 80%;
+      /* Reduced from 100% */
+      object-fit: contain;
+      /* Changed from cover to maintain aspect ratio */
+      position: relative;
+      z-index: 3;
+      margin: auto;
+      /* Center the image */
+      display: block;
+      /* Helps with centering */
+      top: 50%;
+      /* Position vertically in the middle */
+      transform: translateY(-50%);
+      /* Center vertically */
+    }
+
+    /* Hero-specific button styling */
+    .hero-btn-primary {
+      background-color: white;
+      color: #800000;
+      border-color: white;
+      transition: all 0.3s ease;
+    }
+
+    .hero-btn-primary:hover,
+    .hero-btn-primary:focus,
+    .hero-btn-primary:active {
+      background-color: #00008b;
+      /* Dark blue on hover */
+      color: white;
+      border-color: #00008b;
+    }
+
+    .hero-btn-outline {
+      background-color: transparent;
+      color: white;
+      border-color: white;
+      transition: all 0.3s ease;
+    }
+
+    .hero-btn-outline:hover,
+    .hero-btn-outline:focus,
+    .hero-btn-outline:active {
+      background-color: #00008b;
+      /* Dark blue on hover */
+      color: white;
+      border-color: #00008b;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 767.98px) {
+      .hero-content {
+        padding: 60px 20px;
+      }
+
+      #hero-image-container {
+        height: 300px;
+        order: -1;
+        /* Image appears on top for mobile */
+      }
+    }
+
+    .hero-cta {
+      animation: fadeIn 2s ease;
+    }
+
+    /* Feature card styles */
+    .feature-card {
+      padding: 2rem;
+      border-radius: 10px;
+      height: 100%;
+      transition: all 0.4s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      position: relative;
+      overflow: hidden;
+      border-bottom: 5px solid var(--primary-color);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      border-color: var(--secondary-color);
+    }
+
+    .feature-card .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+      transition: all 0.4s ease;
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: scale(1.2);
+      color: var(--secondary-color);
+    }
+
+    /* News card styles */
+    .news-card {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s ease;
+      height: 100%;
+    }
+
+    .news-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .news-image-container {
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .news-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.5s ease;
+    }
+
+    .news-card:hover .news-image-container img {
+      transform: scale(1.1);
+    }
+
+    .news-date {
+      background-color: var(--primary-color);
+      color: white;
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      position: relative;
+      top: -15px;
+      margin-left: 15px;
+    }
+
+    /* Programs section styles */
+    .program-card {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 30px;
+      height: 300px;
+      transition: all 0.5s ease;
+    }
+
+    .program-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.5s ease;
+    }
+
+    .program-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top,
+          rgba(0, 0, 0, 0.8) 0%,
+          rgba(0, 0, 0, 0) 100%);
+      padding: 30px 20px 20px;
+      color: white;
+      transition: all 0.5s ease;
+    }
+
+    .program-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .program-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .program-card:hover .program-overlay {
+      background: linear-gradient(to top,
+          var(--primary-color) 0%,
+          rgba(128, 0, 0, 0.7) 100%);
+    }
+
+    /* Stats section styles */
+    .stats-container {
+      padding: 3rem 0;
+      background-color: var(--light-background);
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 2rem;
+      transition: all 0.4s ease;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    .stat-item:hover .stat-number {
+      animation: pulse 1s infinite;
+    }
+
+    .stat-label {
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    /* Animation keyframes */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.1);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* Scroll animation for elements */
+    .scroll-animate {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .scroll-animate.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Gallery item styling */
+    .gallery-item {
+      margin-bottom: 30px;
+      transition: all 0.5s ease;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: all 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.03);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Preloader -->
+  <div id="preloader">
+    <h1 class="fade-text">CAM Academy</h1>
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">CAM ACADEMY</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#" onclick="navigateTo('home')">Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="navigateTo('about')">About Us</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="admissionDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Admission
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="admissionDropdown">
+              <li>
+                <a class="dropdown-item" href="#" onclick="navigateTo('early-years')">Early Years of Education</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" onclick="navigateTo('lower-primary')">Lower Primary</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" onclick="navigateTo('upper-primary')">Upper Primary</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" onclick="navigateTo('junior-secondary')">Junior Secondary</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="navigateTo('events')">Events</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="navigateTo('gallery')">Gallery</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="navigateTo('contact')">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section id="hero" class="animate__animated animate__fadeIn">
+    <div class="container-fluid p-0">
+      <div class="row g-0">
+        <!-- Content on left side -->
+        <div class="col-md-6">
+          <div class="hero-overlay"></div>
+          <div class="hero-content">
+            <h1 class="display-3 fw-bold animate__animated animate__fadeInLeft animate__delay-1s">
+              Christ's Ambassadors Ministries Academy
+            </h1>
+            <p class="lead animate__animated animate__fadeInLeft animate__delay-1s">
+              <strong>KNOWLEDGE FOR SERVANTHOOD</strong>
+            </p>
+            <div class="hero-cta mt-4 animate__animated animate__fadeInUp animate__delay-2s"></div>
+          </div>
+        </div>
+
+        <!-- Image on right side -->
+        <div class="col-md-6" id="hero-image-container">
+          <img src="assets/55.png" alt="School Campus" class="hero-image" style="width: 50%; max-height: 500px" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs Section -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-lg-8 text-center scroll-animate">
+          <h2 class="section-heading mb-3">Our Educational Programs</h2>
+          <p class="lead">
+            Comprehensive learning paths designed for each stage of your
+            child's development
+          </p>
+        </div>
+      </div>
+
+      <div class="row scroll-animate">
+        <div class="col-md-6 col-lg-3">
+          <div class="program-card">
+            <img src="/assets/eye.jpg" alt="Early Years Education" />
+            <div class="program-overlay">
+              <h4>Early Years</h4>
+              <p>Ages 2-5</p>
+              <a href="#" onclick="navigateTo('early-years')" class="btn btn-sm btn-outline-light mt-2">Learn More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="program-card">
+            <img src="/assets/1.jpg" alt="Lower Primary" />
+            <div class="program-overlay">
+              <h4>Lower Primary</h4>
+              <p>Grades 1-3</p>
+              <a href="#" onclick="navigateTo('lower-primary')" class="btn btn-sm btn-outline-light mt-2">Learn More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="program-card">
+            <img src="/assets/up.jpg" alt="Upper Primary" />
+            <div class="program-overlay">
+              <h4>Upper Primary</h4>
+              <p>Grades 4-8</p>
+              <a href="#" onclick="navigateTo('upper-primary')" class="btn btn-sm btn-outline-light mt-2">Learn More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="program-card">
+            <img src="/assets/juniorsec.jpg" alt="Junior Secondary" />
+            <div class="program-overlay">
+              <h4>Junior Secondary</h4>
+              <p>Grades 9-12</p>
+              <a href="#" onclick="navigateTo('junior-secondary')" class="btn btn-sm btn-outline-light mt-2">Learn
+                More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistics Section -->
+  <section class="stats-container py-5">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-lg-8 text-center scroll-animate">
+          <h2 class="section-heading mb-3">CAM Academy by the Numbers</h2>
+          <p class="lead">Our achievements and growth over the years</p>
+        </div>
+      </div>
+
+      <div class="row scroll-animate">
+        <div class="col-md-3 col-6">
+          <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Students</div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-6">
+          <div class="stat-item">
+            <div class="stat-number">99%</div>
+            <div class="stat-label">Graduation Rate</div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-6">
+          <div class="stat-item">
+            <div class="stat-number">15+</div>
+            <div class="stat-label">Qualified Teachers</div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-6">
+          <div class="stat-item">
+            <div class="stat-number">18</div>
+            <div class="stat-label">Years of Excellence</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest News Section -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-lg-8 text-center scroll-animate">
+          <h2 class="section-heading mb-3">Latest News & Events</h2>
+          <p class="lead">
+            Stay updated with what's happening at CAM Academy
+          </p>
+        </div>
+      </div>
+
+      <div class="row scroll-animate">
+        <div class="col-md-4 mb-4">
+          <div class="news-card">
+            <div class="news-image-container">
+              <img src="/assets/trophy.jpeg" alt="Academic Excellence Awards" />
+            </div>
+            <div class="news-content p-4">
+              <span class="news-date">March 3, 2025</span>
+              <h4 class="mt-2">Academic Excellence Awards</h4>
+              <p>
+                Our annual Academic Excellence Awards ceremony celebrated
+                outstanding student achievements across all grade levels.
+              </p>
+              <a href="#" class="btn btn-sm btn-outline-primary mt-2">Read More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div class="news-card">
+            <div class="news-image-container">
+              <img src="/assets/sports.jpg" alt="Sports Day 2025" />
+            </div>
+            <div class="news-content p-4">
+              <span class="news-date">February 15, 2025</span>
+              <h4 class="mt-2">Annual Sports Day 2025</h4>
+              <p>
+                Students displayed remarkable sportsmanship and athletic
+                prowess at our Annual Sports Day competition.
+              </p>
+              <a href="#" class="btn btn-sm btn-outline-primary mt-2">Read More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div class="news-card">
+            <div class="news-image-container">
+              <img src="/assets/spoken.jpg" alt="Spoken Word Winners" />
+            </div>
+            <div class="news-content p-4">
+              <span class="news-date">January 28, 2025</span>
+              <h4 class="mt-2">Spoken Word Winners Announced</h4>
+              <p>
+                Congratulations to our talented students who showcased
+                exceptional performances this year.
+              </p>
+              <a href="#" class="btn btn-sm btn-outline-primary mt-2">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-4 scroll-animate">
+        <a href="#" onclick="navigateTo('events')" class="btn btn-primary">View All News & Events</a>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="text-white py-5">
+    <div class="container">
+      <div class="row">
+        <!-- Logo container with responsive centering -->
+        <div class="col-md-2 d-flex justify-content-center justify-content-md-start align-items-center mb-3 mb-md-0">
+          <div class="logo-container-footer">
+            <img src="assets/55.png" alt="Christ's Ambassadors Ministries Academy Logo" class="img-fluid"
+              style="max-height: 150px" />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <h4>Christ's Ambassadors Ministries Academy</h4>
+          <p><strong>KNOWLEDGE FOR SERVANTHOOD</strong></p>
+        </div>
+
+        <div class="col-md-3">
+          <h5>Contact Info</h5>
+          <ul class="list-unstyled">
+            <li>
+              <i class="fas fa-map-marker-alt me-2"></i>Kapsegeli Village-
+              Kapsoi
+            </li>
+            <li><i class="fas fa-phone me-2"></i> +254 700 859162</li>
+            <li><i class="fas fa-envelope me-2"></i> info@camacademy.edu</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="my-4 bg-white" />
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0">
+            &copy; <span id="current-year"></span> Christ's Ambassadors
+            Ministries Academy. All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS and Dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <script>
+    // Replace your existing handleScroll function with this improved version
+    function handleScroll() {
+      // Get current scroll position
+      const currentScrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const navbar = document.querySelector(".navbar");
+
+      // Determine scroll direction
+      if (
+        currentScrollTop > lastScrollTop &&
+        currentScrollTop > scrollThreshold
+      ) {
+        // Scrolling down - hide navbar
+        navbar.style.transform = "translateY(-100%)";
+        navbar.style.transition = "transform 0.3s ease-in-out";
+      } else {
+        // Scrolling up - show navbar with no gap between navbar and content
+        navbar.style.transform = "translateY(0)";
+        navbar.style.transition = "transform 0.3s ease-in-out";
+
+        // This ensures the navbar stays fixed to the top with no gap
+        navbar.style.position = "fixed";
+        navbar.style.top = "0";
+        navbar.style.width = "100%";
+        navbar.style.zIndex = "1030";
+
+        // Add padding to body to prevent content jump when navbar becomes fixed
+        document.body.style.paddingTop = navbar.offsetHeight + "px";
+      }
+
+      // Update last scroll position
+      lastScrollTop = currentScrollTop;
+    }
+
+    // Make sure these styles are reset if scrolled to the very top
+    window.addEventListener("scroll", function () {
+      const navbar = document.querySelector(".navbar");
+
+      if (window.scrollY === 0) {
+        // Reset body padding when at the top
+        document.body.style.paddingTop = "0";
+
+        // Reset navbar position
+        navbar.style.position = "sticky";
+        navbar.style.transform = "translateY(0)";
+      }
+    });
+    document.getElementById("current-year").innerHTML =
+      new Date().getFullYear();
+
+    // Variables to track scroll position
+    let lastScrollTop = 0;
+    const navbar = document.querySelector(".navbar");
+    const scrollThreshold = 100; // Minimum scroll amount to trigger the effect
+
+    // Function to handle the scroll event
+    function handleScroll() {
+      // Get current scroll position
+      const currentScrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+
+      // Determine scroll direction
+      if (
+        currentScrollTop > lastScrollTop &&
+        currentScrollTop > scrollThreshold
+      ) {
+        // Scrolling down - hide navbar
+        navbar.style.transform = "translateY(-100%)";
+        navbar.style.transition = "transform 0.3s ease-in-out";
+      } else {
+        // Scrolling up - show navbar
+        navbar.style.transform = "translateY(0)";
+        navbar.style.transition = "transform 0.3s ease-in-out";
+      }
+
+      // Update last scroll position
+      lastScrollTop = currentScrollTop;
+    }
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Initialize navbar state
+    document.addEventListener("DOMContentLoaded", function () {
+      // Make sure navbar is visible when page first loads
+      navbar.style.transform = "translateY(0)";
+    });
+
+    // Navigation function
+    function navigateTo(page) {
+      switch (page) {
+        case "home":
+          window.location.href = "index.html";
+          break;
+        case "about":
+          window.location.href = "about.html";
+          break;
+        case "early-years":
+          window.location.href = "early-years.html";
+          break;
+        case "lower-primary":
+          window.location.href = "lower-primary.html";
+          break;
+        case "upper-primary":
+          window.location.href = "upper-primary.html";
+          break;
+        case "junior-secondary":
+          window.location.href = "junior-secondary.html";
+          break;
+        case "events":
+          window.location.href = "events.html";
+          break;
+        case "gallery":
+          window.location.href = "gallery.html";
+          break;
+        case "contact":
+          window.location.href = "contact.html";
+          break;
+        default:
+          window.location.href = "index.html";
+      }
+    }
+
+    // Function to open the modal with the clicked image
+    function openModal(src, title) {
+      const modalImage = document.getElementById("modalImage");
+      const modalTitle = document.getElementById("galleryModalLabel");
+
+      modalImage.src = src;
+      modalTitle.textContent = title;
+
+      const galleryModal = new bootstrap.Modal(
+        document.getElementById("galleryModal")
+      );
+      galleryModal.show();
+    }
+
+    // Gallery filter functionality
+    document.addEventListener("DOMContentLoaded", function () {
+      const filterButtons = document.querySelectorAll(
+        ".gallery-filter button"
+      );
+      const galleryItems = document.querySelectorAll(".gallery-item");
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          // Remove active class from all buttons
+          filterButtons.forEach((btn) => {
+            btn.classList.remove("active");
+          });
+
+          // Add active class to clicked button
+          this.classList.add("active");
+
+          const filter = this.getAttribute("data-filter");
+
+          // Show/hide gallery items based on filter
+          galleryItems.forEach((item) => {
+            if (filter === "all" || item.classList.contains(filter)) {
+              item.style.display = "block";
+            } else {
+              item.style.display = "none";
+            }
+          });
+        });
+      });
+    });
+
+    // Scroll-triggered animations
+    function checkScroll() {
+      const scrollAnimateElements =
+        document.querySelectorAll(".scroll-animate");
+
+      scrollAnimateElements.forEach((element) => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+
+        if (elementPosition < windowHeight * 0.75) {
+          element.classList.add("visible");
+        }
+      });
+    }
+
+    // Smooth Scroll to Top and Scroll Animations
+    document.addEventListener("DOMContentLoaded", function () {
+      window.scrollTo(0, 0);
+      window.addEventListener("scroll", checkScroll);
+      checkScroll(); // Initial check
+    });
+
+    // Preloader Animation
+    const preloader = document.getElementById("preloader");
+    const body = document.body;
+
+    preloader.innerHTML = `
+                      <img src="assets/logo.png" alt="CAM Academy Logo" class="logo">
+                      <div class="text">CAM Academy</div>
+                  `;
+
+    window.addEventListener("load", function () {
+      setTimeout(function () {
+        preloader.classList.add("fade-out");
+
+        setTimeout(function () {
+          preloader.style.display = "none";
+          body.style.overflow = "auto";
+        }, 500);
+      }, 1500);
+    });
+    // Stats data configuration
+    const statsData = {
+      students: {
+        value: 500,
+        suffix: "+",
+        label: "Students",
+        increment: 5,
+        duration: 4000, // Duration in milliseconds
+      },
+      graduationRate: {
+        value: 99,
+        suffix: "%",
+        label: "Graduation Rate",
+        increment: 0.5,
+        duration: 4000,
+      },
+      teachers: {
+        value: 15,
+        suffix: "+",
+        label: "Qualified Teachers",
+        increment: 1,
+        duration: 3000,
+      },
+      years: {
+        value: 18,
+        suffix: "",
+        label: "Years of Excellence",
+        increment: 1,
+        duration: 4000,
+      },
+    };
+
+    // Function to create the stats section dynamically
+    function createStatsSection() {
+      const statsContainer = document.querySelector(
+        ".stats-container .row.scroll-animate"
+      );
+
+      if (!statsContainer) return;
+
+      // Clear existing content
+      statsContainer.innerHTML = "";
+
+      // Create stat items dynamically
+      Object.keys(statsData).forEach((key) => {
+        const stat = statsData[key];
+        const colDiv = document.createElement("div");
+        colDiv.className = "col-md-3 col-6";
+
+        colDiv.innerHTML = `
+      <div class="stat-item">
+        <div class="stat-number" data-value="${stat.value}" data-suffix="${stat.suffix}">0${stat.suffix}</div>
+        <div class="stat-label">${stat.label}</div>
+      </div>
+    `;
+
+        statsContainer.appendChild(colDiv);
+      });
+    }
+
+    // Animation function for counting up
+    function animateStats() {
+      const statNumbers = document.querySelectorAll(".stat-number");
+
+      statNumbers.forEach((statNumber) => {
+        const targetValue = parseInt(statNumber.getAttribute("data-value"));
+        const suffix = statNumber.getAttribute("data-suffix");
+        const key = Object.keys(statsData).find(
+          (key) =>
+            statsData[key].value === targetValue &&
+            statsData[key].suffix === suffix
+        );
+
+        if (!key) return;
+
+        const stat = statsData[key];
+        let currentValue = 0;
+        const increment = stat.increment;
+        const duration = stat.duration;
+        const interval = duration / (targetValue / increment);
+
+        const counter = setInterval(() => {
+          currentValue += increment;
+
+          if (currentValue >= targetValue) {
+            currentValue = targetValue;
+            clearInterval(counter);
+          }
+
+          // Format the value (if it's a percentage, show 1 decimal place)
+          let displayValue;
+          if (suffix === "%") {
+            displayValue = currentValue.toFixed(1);
+          } else {
+            displayValue = Math.floor(currentValue);
+          }
+
+          statNumber.textContent = displayValue + suffix;
+        }, interval);
+      });
+    }
+
+    // Observer for scroll-triggered animation
+    function setupStatObserver() {
+      const statsSection = document.querySelector(".stats-container");
+      if (!statsSection) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              animateStats();
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+
+      observer.observe(statsSection);
+    }
+
+    // Function to update statistics through an admin interface (simulated)
+    function updateStats(newStats) {
+      // Update the stats data with new values
+      Object.keys(newStats).forEach((key) => {
+        if (statsData[key]) {
+          statsData[key].value = newStats[key];
+        }
+      });
+
+      // Recreate the stats section with new data
+      createStatsSection();
+      setupStatObserver();
+    }
+
+    // Initialize the stats functionality
+    document.addEventListener("DOMContentLoaded", function () {
+      createStatsSection();
+      setupStatObserver();
+
+      // Example of how to update stats (for admin use)
+      // This could be triggered by an admin form submission
+      // updateStats({ students: 850, graduationRate: 97, teachers: 55, years: 19 });
+    });
+  </script>
+</body>
+
+</html>
